@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FL Studio Lite — синтезатор</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="studio">
+        <h1>🎹 FL Studio <span>Lite</span></h1>
+
+        <!-- пиано-ролл -->
+        <div class="section">
+            <div class="section-title">🎵 Пиано-ролл (клик для звука)</div>
+            <div class="piano-roll" id="pianoRoll"></div>
+        </div>
+
+        <!-- шаговый секвенсор -->
+        <div class="section">
+            <div class="section-title">🔘 Шаговый секвенсор (паттерн)</div>
+            <div id="stepSequencer" class="step-sequencer"></div>
+        </div>
+
+        <!-- транспорт + BPM -->
+        <div class="transport">
+            <button class="btn btn-primary" id="playBtn">▶ Воспроизвести</button>
+            <button class="btn btn-danger" id="stopBtn">⏹ Стоп</button>
+            <button class="btn" id="clearBtn">⟲ Очистить</button>
+            <div class="bpm-control">
+                <span>BPM</span>
+                <input type="number" id="bpmInput" value="120" min="40" max="240">
+            </div>
+        </div>
+
+        <!-- микшер (громкость и панорама) -->
+        <div class="section" style="margin-top: 24px;">
+            <div class="section-title">🎚 Микшер</div>
+            <div class="mixer">
+                <div class="mixer-channel">
+                    <div class="label">Громкость</div>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+                    <div class="value" id="volumeValue">70%</div>
+                </div>
+                <div class="mixer-channel">
+                    <div class="label">Панорама</div>
+                    <input type="range" id="panSlider" min="-1" max="1" step="0.05" value="0">
+                    <div class="value" id="panValue">C</div>
+                </div>
+            </div>
+        </div>
+        <footer>⚡ синтезатор — вдохновлён FL Studio</footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
