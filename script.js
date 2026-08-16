@@ -46,6 +46,13 @@
     const panSlider = document.getElementById('panSlider');
     const panValue = document.getElementById('panValue');
 
+    // функция для получения текущих значений громкости и панорамы
+    function getVolumeAndPan() {
+        const vol = parseFloat(volumeSlider.value) || 0.7;
+        const pan = parseFloat(panSlider.value) || 0;
+        return { volume: vol, pan: pan };
+    }
+
     // отображение клавиш пиано-ролла
     function renderPiano() {
         pianoRollEl.innerHTML = '';
@@ -61,7 +68,8 @@
             key.dataset.noteIndex = index;
             key.addEventListener('mousedown', (e) => {
                 e.preventDefault();
-                playNote(index);
+                const { volume, pan } = getVolumeAndPan();
+                playNote(index, volume, pan);
                 key.classList.add('active');
             });
             key.addEventListener('mouseup', () => key.classList.remove('active'));
@@ -102,7 +110,7 @@
         renderSequencer();
     }
 
-    // воспроизведение ноты
+    // воспроизведение ноты с указанными громкостью и панорамой
     function playNote(noteIndex, volume = 0.7, pan = 0) {
         try {
             const ctx = initAudio();
@@ -113,6 +121,7 @@
             osc.type = 'sawtooth';
             osc.frequency.value = NOTE_FREQ[NOTES[noteIndex]] || 440;
 
+            // Применяем громкость и панораму
             gain.gain.value = volume * 0.4;
             panner.pan.value = pan;
 
@@ -130,10 +139,9 @@
     // воспроизвести шаг (все ноты в шаге)
     function playStep(stepIndex) {
         const notes = pattern[stepIndex] || [];
-        const vol = parseFloat(volumeSlider.value) || 0.7;
-        const pan = parseFloat(panSlider.value) || 0;
+        const { volume, pan } = getVolumeAndPan();
         notes.forEach(noteIdx => {
-            playNote(noteIdx, vol, pan);
+            playNote(noteIdx, volume, pan);
         });
     }
 
